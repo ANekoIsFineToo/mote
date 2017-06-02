@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 
-import './index.css';
-
 class Header extends PureComponent {
 
   constructor(props) {
@@ -23,8 +21,8 @@ class Header extends PureComponent {
 
   render() {
     return (
-      <Container className="my-3">
-        <Navbar className="Header" color="fade" light toggleable>
+      <Container className="Header my-3">
+        <Navbar color="fade" light toggleable>
           <NavbarToggler right onClick={this.toggle} />
           <NavbarBrand href="#">Mote</NavbarBrand>
 
