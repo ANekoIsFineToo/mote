@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link, NavLink as ActiveLink } from 'react-router-dom';
 import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 
-class Header extends PureComponent {
+class Header extends Component {
 
   constructor(props) {
     super(props);
@@ -30,7 +30,11 @@ class Header extends PureComponent {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav navbar>
               <NavItem>
-                <NavLink tag={Link} to="/">Inicio</NavLink>
+                <NavLink exact tag={ActiveLink} to="/">Inicio</NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink tag={ActiveLink} to="/note/add">Añadir nota</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
