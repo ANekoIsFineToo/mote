@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 
 class Header extends PureComponent {
@@ -24,12 +25,12 @@ class Header extends PureComponent {
       <Container className="Header my-3">
         <Navbar color="fade" light toggleable>
           <NavbarToggler right onClick={this.toggle} />
-          <NavbarBrand href="#">Mote</NavbarBrand>
+          <NavbarBrand tag={Link} to="/">Mote</NavbarBrand>
 
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav navbar>
               <NavItem>
-                <NavLink href="#">Inicio</NavLink>
+                <NavLink tag={Link} to="/">Inicio</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
