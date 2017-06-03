@@ -24,10 +24,10 @@ div.CodeMirror span.CodeMirror-matchingbracket {
 .cm-s-default .cm-keyword { color: #613d7c; }
 .cm-s-default .cm-atom { color: #0275d8; }
 .cm-s-default .cm-number { color: #5cb85c; }
+.cm-s-default .cm-variable,
 .cm-s-default .cm-def { color: #0275d8; }
 .cm-s-default .cm-punctuation,
 .cm-s-default .cm-property { color: #5bc0de; }
-.cm-s-default .cm-variable,
 .cm-s-default .cm-operator {}
 .cm-s-default .cm-variable-2 { color: #0275d8; }
 .cm-s-default .cm-variable-3 { color: #5cb85c; }
@@ -50,3 +50,8 @@ div.CodeMirror span.CodeMirror-matchingbracket {
 .CodeMirror-focused .CodeMirror-selected { background: #eceeef; }
 .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #eceeef; }
 .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #eceeef; }
+
+.contains-task-list {
+  list-style: none;
+  padding-left: .5rem;
+}
