@@ -10,19 +10,21 @@ class NoteOutput extends PureComponent {
     markdown: PropTypes.string.isRequired,
   };
 
-  options = {
-    html: true,
-    xhtmlOut: true,
-    linkify: true,
-    typographer: true,
-
-    highlight: this.highlight,
-  };
-
-  md = new MarkdownIt(this.options);
-
   constructor(props) {
     super(props);
+
+    this.highlight = this.highlight.bind(this);
+
+    const options = {
+      html: true,
+      xhtmlOut: true,
+      linkify: true,
+      typographer: true,
+
+      highlight: this.highlight,
+    };
+
+    this.md = new MarkdownIt(options);
 
     this.md.use(markdownTaskLists);
   }
@@ -30,7 +32,7 @@ class NoteOutput extends PureComponent {
   highlight(str, lang) {
     let result = '';
 
-    CodeMirror.runMode(str, lang, (html, type) => {
+    CodeMirror.runMode(str, this.resolveMode(lang), (html, type) => {
       const parsedTypes = type && type.split(' ').map(t => 'cm-' + t).join(' ');
       const parsedHtml = html.replace(/\t/g, '&nbsp;&nbsp;');
 
@@ -38,6 +40,12 @@ class NoteOutput extends PureComponent {
     });
 
     return result;
+  }
+
+  resolveMode(name) {
+    const found = CodeMirror.findModeByName(name);
+
+    return found ? found.mime || found.mimes[0] : null;
   }
 
   renderOutput() {
