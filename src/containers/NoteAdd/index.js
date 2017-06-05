@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import * as note from '../../actions/note';
-import NoteEdit from '../../components/NoteEdit';
+import NoteModify from '../../components/NoteModify';
 import * as fromRoot from '../../reducers';
 
 class NoteAdd extends PureComponent {
@@ -28,7 +28,7 @@ class NoteAdd extends PureComponent {
           <title>Añadir nota</title>
         </Helmet>
 
-        <NoteEdit draft={this.props.draft} saveDraft={this.props.saveDraft} saveNote={this.props.saveNewNote} />
+        <NoteModify draft={this.props.draft} saveDraft={this.props.saveDraft} saveNote={this.props.saveNewNote} />
       </div>
     );
   }

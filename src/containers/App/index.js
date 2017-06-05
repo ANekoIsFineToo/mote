@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 
 import Home from '../Home';
+import Note from '../Note';
 import NoteAdd from '../NoteAdd';
-import NoteView from '../NoteView';
 import Header from '../../components/Header';
 
 import './index.css';
@@ -21,7 +21,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/note/add" component={NoteAdd} />
-          <Route path="/note/:id" component={NoteView} />
+          <Route path="/note/:id" component={Note} />
         </Switch>
       </div>
     );

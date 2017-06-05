@@ -10,7 +10,7 @@ import * as note from '../../actions/note';
 import NoteOutput from '../../components/NoteOutput';
 import * as fromRoot from '../../reducers';
 
-class NoteView extends PureComponent {
+class Note extends PureComponent {
   static propTypes = {
     match: PropTypes.object.isRequired,
     note: ImmutablePropTypes.map.isRequired,
@@ -27,7 +27,7 @@ class NoteView extends PureComponent {
 
   render() {
     return (
-      <div className="NoteView">
+      <div className="Note">
         <Helmet>
           <title>{this.getTitle()}</title>
         </Helmet>
@@ -65,4 +65,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NoteView));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Note));
