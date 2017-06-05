@@ -55,3 +55,11 @@ div.CodeMirror span.CodeMirror-matchingbracket {
   list-style: none;
   padding-left: .5rem;
 }
+
+.noty_bar {
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+}

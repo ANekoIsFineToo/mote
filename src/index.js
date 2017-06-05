@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import CodeMirror from 'codemirror';
 import createHistory from 'history/createBrowserHistory';
+import Noty from 'noty';
 
 import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
@@ -29,11 +30,18 @@ import 'codemirror/mode/python/python';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/addon/display/fullscreen.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'noty/lib/noty.css';
 import './index.css';
 
 CodeMirror.commands.autocomplete = cm => cm.showHint({ hint: CodeMirror.hint.anyword });
 CodeMirror.commands.toggleFullScreen = cm => cm.setOption('fullScreen', !cm.getOption('fullScreen'));
 CodeMirror.commands.closeFullScreen = cm => cm.getOption('fullScreen') && cm.setOption('fullScreen', false);
+
+Noty.overrideDefaults({
+  theme: 'bootstrap-v4',
+  timeout: 5000,
+  closeWith: ['click', 'button'],
+});
 
 const history = createHistory();
 const store = createStore(history);

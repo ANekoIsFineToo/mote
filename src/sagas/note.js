@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import Noty from 'noty';
 import { push } from 'react-router-redux';
 import { call, put, takeEvery, takeLatest, select } from 'redux-saga/effects';
 
@@ -42,7 +43,7 @@ function* saveNewNote(action) {
 
     yield put(push('/note/' + id));
 
-    // TODO: Display `note saved` message
+    new Noty({ type: 'success', text: 'La nota ha sido guardada correctamente.' }).show();
 
     yield put(note.resetDraft());
 
@@ -78,7 +79,7 @@ function* saveNote(action) {
 
     yield put(push('/note/' + parent));
 
-    // TODO: Display `note updated` message
+    new Noty({ type: 'success', text: 'La nota ha sido actualizada correctamente.' }).show();
   } catch (err) {
     // TODO: Add logging
   }
