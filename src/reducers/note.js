@@ -9,6 +9,12 @@ const initialState = fromJS({
     content: '',
     bgColor: '',
   },
+  note: {
+    id: 1,
+    title: '',
+    content: '',
+    bgColor: '',
+  },
 });
 
 export const reducer = (state = initialState, action) => {
@@ -21,6 +27,10 @@ export const reducer = (state = initialState, action) => {
       return state.update('draft', () => initialState.get('draft'));
     }
 
+    case note.SAVE_NOTE: {
+      return state.update('note', note => note.merge(action.payload));
+    }
+
     default: {
       return state;
     }
@@ -28,3 +38,4 @@ export const reducer = (state = initialState, action) => {
 };
 
 export const getDraft = state => state.get('draft');
+export const getNote = state => state.get('note');

@@ -45,18 +45,18 @@ class EditNote extends PureComponent {
   render() {
     return (
       <div className="EditNote">
-        <Container>
+        <Container className="mb-3">
           <Row>
             <Col xs="9">
               <Input
-                className="border-0"
+                className="border-top-0 border-left-0 border-right-0 border rounded-0"
                 value={this.props.draft.get('title')}
                 placeholder="Nota sin título."
                 onChange={this.handleTitleChange} />
             </Col>
 
             <Col xs="3">
-              <Button className="mr-2" color="primary" onClick={this.saveNote}>Guardar</Button>
+              <Button className="mr-2" color="success" onClick={this.saveNote}>Guardar</Button>
               <Button outline color="warning" onClick={this.clearAll}>Vaciar</Button>
             </Col>
           </Row>

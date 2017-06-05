@@ -5,6 +5,8 @@ import MarkdownIt from 'markdown-it';
 import markdownTaskLists from 'markdown-it-task-lists';
 import PropTypes from 'prop-types';
 
+import './index.css';
+
 class NoteOutput extends PureComponent {
   static propTypes = {
     markdown: PropTypes.string.isRequired,

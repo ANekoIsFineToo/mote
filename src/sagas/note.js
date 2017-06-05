@@ -7,9 +7,9 @@ import * as note from '../actions/note';
 
 function* loadDraft(action) {
   try {
-    const draft = yield call([db.drafts, 'get'], action.payload);
+    const data = yield call([db.drafts, 'get'], action.payload);
 
-    yield put(note.saveDraft(fromJS(draft)));
+    yield put(note.saveDraft(fromJS(data)));
   } catch (err) {
     // TODO: Add logging
   }
@@ -53,10 +53,22 @@ function* saveNewNote(action) {
   }
 }
 
+function* loadNote(action) {
+  try {
+    const data = yield call([db.notes, 'get'], action.payload);
+
+    yield put(note.saveNote(fromJS(data)));
+  } catch (err) {
+    // TODO: Add logging
+    console.error(err);
+  }
+}
+
 function* noteSaga() {
   yield takeLatest(note.LOAD_DRAFT, loadDraft);
   yield takeLatest(note.SAVE_DRAFT, saveDraft);
   yield takeEvery(note.SAVE_NEW_NOTE, saveNewNote);
+  yield takeLatest(note.LOAD_NOTE, loadNote);
 }
 
 export default noteSaga;
