@@ -22,10 +22,9 @@ import 'codemirror/addon/hint/anyword-hint.js';
 import 'codemirror/addon/runmode/runmode.js';
 
 import 'codemirror/mode/gfm/gfm';
-import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/htmlmixed/htmlmixed';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/mode/python/python';
-import 'codemirror/mode/css/css';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/addon/display/fullscreen.css';

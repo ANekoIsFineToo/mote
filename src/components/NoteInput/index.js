@@ -8,6 +8,29 @@ class NoteInput extends PureComponent {
     value: PropTypes.string,
   };
 
+  codeMirror = null;
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: props.value,
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state.value === '' && this.state.value !== nextProps.value) {
+      this.codeMirror.getCodeMirror().setValue(nextProps.value);
+    }
+  }
+
+  handleChange(value) {
+    this.setState({ value });
+    this.props.onChange(value);
+  }
+
   render() {
     const codeMirrorOptions = {
       mode: 'gfm',
@@ -27,8 +50,9 @@ class NoteInput extends PureComponent {
     return <CodeMirror autoFocus
                        className="NoteInput"
                        options={codeMirrorOptions}
-                       onChange={this.props.onChange}
-                       defaultValue={this.props.value} />;
+                       onChange={this.handleChange}
+                       defaultValue={this.props.value}
+                       ref={codeMirror => (this.codeMirror = codeMirror)} />;
   }
 }
 
