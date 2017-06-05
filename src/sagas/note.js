@@ -85,12 +85,31 @@ function* saveNote(action) {
   }
 }
 
+function* removeNote(action) {
+  try {
+    const id = action.payload;
+
+    // TODO: Move to trash instead of delete directly
+
+    yield call([db.drafts.where('note').equals(id), 'delete']);
+    yield call([db.notes.where('id').equals(id), 'delete']);
+    yield call([db.versions.where('note').equals(id), 'delete']);
+
+    yield put(push('/'));
+
+    new Noty({ type: 'success', text: 'La nota ha sido borrada correctamente.' }).show();
+  } catch (err) {
+    // TODO: Add logging
+  }
+}
+
 function* noteSaga() {
   yield takeLatest(note.LOAD_DRAFT, loadDraft);
   yield takeLatest(note.SAVE_DRAFT, saveDraft);
   yield takeEvery(note.SAVE_NEW_NOTE, saveNewNote);
   yield takeLatest(note.LOAD_NOTE, loadNote);
-  yield takeLatest(note.SAVE_NOTE, saveNote);
+  yield takeEvery(note.SAVE_NOTE, saveNote);
+  yield takeEvery(note.REMOVE_NOTE, removeNote);
 }
 
 export default noteSaga;

@@ -15,10 +15,21 @@ class Note extends PureComponent {
     match: PropTypes.object.isRequired,
     note: ImmutablePropTypes.map.isRequired,
     loadNote: PropTypes.func.isRequired,
+    removeNote: PropTypes.func.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+
+    this.removeNote = this.removeNote.bind(this);
+  }
 
   componentDidMount() {
     this.props.loadNote(parseInt(this.props.match.params.id, 10));
+  }
+
+  removeNote() {
+    this.props.removeNote(parseInt(this.props.match.params.id, 10));
   }
 
   getTitle() {
@@ -40,7 +51,7 @@ class Note extends PureComponent {
 
             <Col xs="3">
               <Button className="mr-2" color="primary" tag={Link} to={this.props.match.url + '/edit'}>Editar</Button>
-              <Button outline color="danger">Eliminar</Button>
+              <Button outline color="danger" onClick={this.removeNote}>Eliminar</Button>
             </Col>
           </Row>
 
@@ -62,6 +73,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loadNote(id) {
     dispatch(note.loadNote(id));
+  },
+  removeNote(id) {
+    dispatch(note.removeNote(id));
   },
 });
 
