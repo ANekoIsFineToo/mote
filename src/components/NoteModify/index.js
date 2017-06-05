@@ -49,7 +49,7 @@ class NoteModify extends PureComponent {
           <Row>
             <Col xs="9">
               <Input
-                className="border-top-0 border-left-0 border-right-0 border rounded-0"
+                className="border-top-0 border-left-0 border-right-0 rounded-0"
                 value={this.props.draft.get('title')}
                 placeholder="Nota sin título."
                 onChange={this.handleTitleChange} />

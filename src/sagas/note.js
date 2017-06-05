@@ -38,6 +38,7 @@ function* saveNewNote(action) {
 
     const id = yield call([db.notes, 'put'], { title, content, bgColor });
     yield call([db.drafts, 'put'], { note: id, title, content, bgColor });
+    yield call([db.versions, 'put'], { note: id, title, content, bgColor });
 
     yield put(push('/note/' + id));
 
@@ -73,6 +74,9 @@ function* saveNote(action) {
     const bgColor = data.get('bgColor');
 
     yield call([db.notes, 'put'], { id: parent, title, content, bgColor });
+    yield call([db.versions, 'put'], { note: parent, title, content, bgColor });
+
+    yield put(push('/note/' + parent));
 
     // TODO: Display `note updated` message
   } catch (err) {

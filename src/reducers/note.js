@@ -15,6 +15,7 @@ const initialState = fromJS({
     content: '',
     bgColor: '',
   },
+  version: [],
 });
 
 export const reducer = (state = initialState, action) => {
