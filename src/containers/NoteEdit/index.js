@@ -30,7 +30,7 @@ class NoteEdit extends PureComponent {
     return (
       <div className="NoteEdit">
         <Helmet>
-          <title>Editar / {this.getTitle()}</title>
+          <title>{'Editar / ' + this.getTitle()}</title>
         </Helmet>
 
         <NoteModify draft={this.props.draft} saveDraft={this.props.saveDraft} saveNote={this.props.saveNote} />

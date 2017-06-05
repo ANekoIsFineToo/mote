@@ -14,7 +14,7 @@ class NoteInput extends PureComponent {
     super(props);
 
     this.state = {
-      value: props.value,
+      value: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
