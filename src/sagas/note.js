@@ -37,6 +37,7 @@ function* saveNewNote(action) {
     const bgColor = data.get('bgColor');
 
     const id = yield call([db.notes, 'put'], { title, content, bgColor });
+    yield call([db.drafts, 'put'], { note: id, title, content, bgColor });
 
     yield put(push('/note/' + id));
 
@@ -60,7 +61,22 @@ function* loadNote(action) {
     yield put(note.saveNote(fromJS(data)));
   } catch (err) {
     // TODO: Add logging
-    console.error(err);
+  }
+}
+
+function* saveNote(action) {
+  try {
+    const data = action.payload;
+    const parent = data.get('note');
+    const title = data.get('title');
+    const content = data.get('content');
+    const bgColor = data.get('bgColor');
+
+    yield call([db.notes, 'put'], { id: parent, title, content, bgColor });
+
+    // TODO: Display `note updated` message
+  } catch (err) {
+    // TODO: Add logging
   }
 }
 
@@ -69,6 +85,7 @@ function* noteSaga() {
   yield takeLatest(note.SAVE_DRAFT, saveDraft);
   yield takeEvery(note.SAVE_NEW_NOTE, saveNewNote);
   yield takeLatest(note.LOAD_NOTE, loadNote);
+  yield takeLatest(note.SAVE_NOTE, saveNote);
 }
 
 export default noteSaga;

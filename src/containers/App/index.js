@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import Home from '../Home';
 import Note from '../Note';
 import NoteAdd from '../NoteAdd';
+import NoteEdit from '../NoteEdit';
 import Header from '../../components/Header';
 
 import './index.css';
@@ -20,7 +21,9 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" component={Home} />
+
           <Route path="/note/add" component={NoteAdd} />
+          <Route path="/note/:id/edit" component={NoteEdit} />
           <Route path="/note/:id" component={Note} />
         </Switch>
       </div>
