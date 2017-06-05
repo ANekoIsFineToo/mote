@@ -21,7 +21,7 @@ class NoteInput extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.value === '' && this.state.value !== nextProps.value) {
+    if ((this.state.value === '' && this.state.value !== nextProps.value) || nextProps.value === '') {
       this.codeMirror.getCodeMirror().setValue(nextProps.value);
     }
   }

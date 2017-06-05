@@ -17,6 +17,10 @@ export const reducer = (state = initialState, action) => {
       return state.update('draft', draft => draft.merge(action.payload));
     }
 
+    case note.RESET_DRAFT: {
+      return state.update('draft', () => initialState.get('draft'));
+    }
+
     default: {
       return state;
     }
