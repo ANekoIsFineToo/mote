@@ -33,7 +33,11 @@ class NoteEdit extends PureComponent {
           <title>{'Editar / ' + this.getTitle()}</title>
         </Helmet>
 
-        <NoteModify draft={this.props.draft} saveDraft={this.props.saveDraft} saveNote={this.props.saveNote} />
+        <NoteModify
+          draft={this.props.draft}
+          saveDraft={this.props.saveDraft}
+          saveNote={this.props.saveNote}
+          goBack={'/note/' + this.props.match.params.id} />
       </div>
     );
   }

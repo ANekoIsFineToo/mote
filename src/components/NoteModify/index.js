@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import { Link } from 'react-router-dom';
 import { Button, Col, Container, Input, Row } from 'reactstrap';
 import PropTypes from 'prop-types';
 
@@ -11,6 +12,7 @@ class NoteModify extends PureComponent {
     draft: ImmutablePropTypes.map.isRequired,
     saveDraft: PropTypes.func.isRequired,
     saveNote: PropTypes.func.isRequired,
+    goBack: PropTypes.string,
   };
 
   constructor(props) {
@@ -47,7 +49,14 @@ class NoteModify extends PureComponent {
       <div className="NoteModify">
         <Container className="mb-3">
           <Row>
-            <Col xs="9">
+            {
+              this.props.goBack &&
+              <Col xs="1">
+                <Button outline color="primary" tag={Link} to={this.props.goBack}>Volver</Button>
+              </Col>
+            }
+
+            <Col xs={this.props.goBack ? 8 : 9}>
               <Input
                 className="border-top-0 border-left-0 border-right-0 rounded-0"
                 value={this.props.draft.get('title')}
