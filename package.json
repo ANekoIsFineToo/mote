@@ -15,6 +15,7 @@
     "dexie": "^1.5.1",
     "history": "^4.6.1",
     "immutable": "^3.8.1",
+    "loglevel": "^1.4.1",
     "markdown-it": "^8.3.1",
     "markdown-it-task-lists": "^2.0.1",
     "noty": "^3.1.0",

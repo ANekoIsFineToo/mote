@@ -20,7 +20,7 @@ const initialState = fromJS({
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case note.SAVE_DRAFT: {
+    case note.SET_DRAFT: {
       return state.update('draft', draft => draft.merge(action.payload));
     }
 
@@ -28,7 +28,7 @@ export const reducer = (state = initialState, action) => {
       return state.update('draft', () => initialState.get('draft'));
     }
 
-    case note.SAVE_NOTE: {
+    case note.SET_NOTE: {
       return state.update('note', note => note.merge(action.payload));
     }
 
