@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import NoteInput from '../NoteInput';
 import NoteOutput from '../NoteOutput';
 
-class EditNote extends PureComponent {
+class NoteEdit extends PureComponent {
   static propTypes = {
     draft: ImmutablePropTypes.map.isRequired,
     saveDraft: PropTypes.func.isRequired,
@@ -44,7 +44,7 @@ class EditNote extends PureComponent {
 
   render() {
     return (
-      <div className="EditNote">
+      <div className="NoteEdit">
         <Container className="mb-3">
           <Row>
             <Col xs="9">
@@ -78,4 +78,4 @@ class EditNote extends PureComponent {
   }
 }
 
-export default EditNote;
+export default NoteEdit;
