@@ -49,7 +49,7 @@ class Note extends PureComponent {
               <Input static>{this.getTitle()}</Input>
             </Col>
 
-            <Col xs="3">
+            <Col className="d-flex justify-content-between" xs="3">
               <Button className="mr-2" color="primary" tag={Link} to={this.props.match.url + '/edit'}>Editar</Button>
               <Button outline color="danger" onClick={this.removeNote}>Eliminar</Button>
             </Col>

@@ -51,12 +51,12 @@ class NoteModify extends PureComponent {
           <Row>
             {
               this.props.goBack &&
-              <Col xs="1">
+              <Col xs="2">
                 <Button outline color="primary" tag={Link} to={this.props.goBack}>Volver</Button>
               </Col>
             }
 
-            <Col xs={this.props.goBack ? 8 : 9}>
+            <Col xs={this.props.goBack ? 7 : 8}>
               <Input
                 className="border-top-0 border-left-0 border-right-0 rounded-0"
                 value={this.props.draft.get('title')}
@@ -64,8 +64,8 @@ class NoteModify extends PureComponent {
                 onChange={this.handleTitleChange} />
             </Col>
 
-            <Col xs="3">
-              <Button className="mr-2" color="success" onClick={this.saveNote}>Guardar</Button>
+            <Col className="d-flex justify-content-between" xs="3">
+              <Button color="success" onClick={this.saveNote}>Guardar</Button>
               <Button outline color="warning" onClick={this.clearAll}>Vaciar</Button>
             </Col>
           </Row>
