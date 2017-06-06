@@ -8,6 +8,7 @@ import Home from '../Home';
 import Note from '../Note';
 import NoteAdd from '../NoteAdd';
 import NoteEdit from '../NoteEdit';
+import NoteVersion from '../NoteVersion';
 import Header from '../../components/Header';
 
 import './index.css';
@@ -39,6 +40,7 @@ class App extends Component {
 
             <Route path="/note/add" component={NoteAdd} />
             <Route path="/note/:id/edit" component={NoteEdit} />
+            <Route path="/note/:id/version/:version" component={NoteVersion} />
             <Route path="/note/:id" component={Note} />
           </Switch>
         </CSSTransitionGroup>

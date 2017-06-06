@@ -29,6 +29,7 @@ class Note extends PureComponent {
 
     this.removeNote = this.removeNote.bind(this);
     this.toggleVersions = this.toggleVersions.bind(this);
+    this.mapVersions = this.mapVersions.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +51,26 @@ class Note extends PureComponent {
 
   getTitle() {
     return this.props.note.get('title') || 'Sin título';
+  }
+
+  mapVersions(version) {
+    return (
+      <tr key={version.get('id')}>
+        <th scope="row">{version.get('title')}</th>
+        <td className="text-right">
+          <Button
+            className="mr-2"
+            color="primary"
+            size="sm"
+            onClick={this.toggleVersions}
+            tag={Link}
+            to={`${this.props.match.url}/version/${version.get('id')}`}>
+            Ver
+          </Button>
+          <Button outline color="warning" size="sm">Eliminar</Button>
+        </td>
+      </tr>
+    );
   }
 
   render() {
@@ -82,15 +103,12 @@ class Note extends PureComponent {
         <Modal
           isOpen={this.state.versionsOpen}
           toggle={this.toggleVersions}
+          size="lg"
           contentClassName="border-0 b-transparent">
           <ModalBody>
-            <Table inverse>
+            <Table inverse responsive>
               <tbody>
-                <tr>
-                  <th scope="row">
-                    Title
-                  </th>
-                </tr>
+                {this.props.versions.reverse().map(this.mapVersions)}
               </tbody>
             </Table>
           </ModalBody>
