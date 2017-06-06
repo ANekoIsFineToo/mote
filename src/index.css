@@ -78,7 +78,17 @@ div.CodeMirror span.CodeMirror-matchingbracket {
   background-color: #3c763d;
 }
 
+.router-group {
+  position: relative;
+  display: block;
+}
+
 .router-group > .animated {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+
   -webkit-animation-duration: .3s;
   animation-duration: .3s;
 }

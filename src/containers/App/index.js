@@ -28,9 +28,9 @@ class App extends Component {
           className="router-group"
           transitionName={{
             enter: 'animated',
-            enterActive: 'fadeInDown',
+            enterActive: 'fadeIn',
             leave: 'animated',
-            leaveActive: 'fadeOutDown',
+            leaveActive: 'fadeOut',
           }}
           transitionEnterTimeout={300}
           transitionLeaveTimeout={300}>
