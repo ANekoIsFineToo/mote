@@ -8,6 +8,7 @@ import CodeMirror from 'codemirror';
 import createHistory from 'history/createBrowserHistory';
 import Noty from 'noty';
 
+import * as connection from './actions/connection';
 import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 import createStore from './store';
@@ -46,6 +47,9 @@ Noty.overrideDefaults({
 
 const history = createHistory();
 const store = createStore(history);
+
+window.addEventListener('online', () => store.dispatch(connection.updateConnectivity(true)));
+window.addEventListener('offline', () => store.dispatch(connection.updateConnectivity(false)));
 
 ReactDOM.render(
   <Provider store={store}>

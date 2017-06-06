@@ -1,5 +1,9 @@
 import { createMiddleware } from 'redux-beacon';
+import { logger } from 'redux-beacon/extensions/logger';
+import { offlineWeb } from 'redux-beacon/extensions/offline-web';
 import { GoogleTagManager } from 'redux-beacon/targets/google-tag-manager';
+
+import * as fromRoot from './reducers';
 
 export default () => {
   const pageView = {
@@ -13,5 +17,7 @@ export default () => {
     '@@router/LOCATION_CHANGE': pageView,
   };
 
-  return createMiddleware(eventsMap, GoogleTagManager());
+  const offlineStorage = offlineWeb(fromRoot.getConnectionIsConnected);
+
+  return createMiddleware(eventsMap, GoogleTagManager(), { logger, offlineStorage });
 };
