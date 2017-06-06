@@ -1,8 +1,8 @@
 import { createMiddleware } from 'redux-beacon';
-import { logger } from 'redux-beacon/extensions/logger';
 import { offlineWeb } from 'redux-beacon/extensions/offline-web';
 import { GoogleTagManager } from 'redux-beacon/targets/google-tag-manager';
 
+import * as note from './actions/note';
 import * as fromRoot from './reducers';
 
 export default () => {
@@ -13,11 +13,38 @@ export default () => {
     }),
   };
 
+  const newNote = {
+    eventFields: action => ({
+      hitType: 'event',
+      eventCategory: 'Note',
+      eventAction: 'New',
+    }),
+  };
+
+  const updateNote = {
+    eventFields: action => ({
+      hitType: 'event',
+      eventCategory: 'Note',
+      eventAction: 'Update',
+    }),
+  };
+
+  const removeNote = {
+    eventFields: action => ({
+      hitType: 'event',
+      eventCategory: 'Note',
+      eventAction: 'Remove',
+    }),
+  };
+
   const eventsMap = {
     '@@router/LOCATION_CHANGE': pageView,
+    [note.SAVE_NEW_NOTE]: newNote,
+    [note.SAVE_NOTE]: updateNote,
+    [note.REMOVE_NOTE]: removeNote,
   };
 
   const offlineStorage = offlineWeb(fromRoot.getConnectionIsConnected);
 
-  return createMiddleware(eventsMap, GoogleTagManager(), { logger, offlineStorage });
+  return createMiddleware(eventsMap, GoogleTagManager(), { offlineStorage });
 };
