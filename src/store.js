@@ -4,6 +4,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
 import createSagaMiddleware from 'redux-saga';
 
+import createGtmMiddleware from './gtmMiddleware';
 import reducer from './reducers';
 import noteSaga from './sagas/note';
 
@@ -11,6 +12,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 export default (history, initialState = {}) => {
   const middlewares = [
+    createGtmMiddleware(),
     routerMiddleware(history),
     sagaMiddleware,
   ];
