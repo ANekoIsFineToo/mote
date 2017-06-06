@@ -57,9 +57,23 @@ div.CodeMirror span.CodeMirror-matchingbracket {
 }
 
 .noty_bar {
-  border-top: 0 !important;
-  border-left: 0 !important;
-  border-right: 0 !important;
+  border: 0 !important;
   border-radius: 0 !important;
   background-color: transparent !important;
+}
+
+.noty_type__warning .noty_progressbar {
+  background-color: #8a6d3b;
+}
+
+.noty_type__error .noty_progressbar {
+  background-color: #a94442;
+}
+
+.noty_type__info .noty_progressbar {
+  background-color: #31708f;
+}
+
+.noty_type__success .noty_progressbar {
+  background-color: #3c763d;
 }
