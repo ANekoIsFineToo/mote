@@ -59,7 +59,7 @@ div.CodeMirror span.CodeMirror-matchingbracket {
 .noty_bar {
   border: 0 !important;
   border-radius: 0 !important;
-  background-color: transparent !important;
+  background-color: #fff !important;
 }
 
 .noty_type__warning .noty_progressbar {
