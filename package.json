@@ -2,8 +2,9 @@
   "name": "mote",
   "version": "0.0.0",
   "scripts": {
+    "cpy": "cpy",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && cpy _redirects build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -39,6 +40,7 @@
     "reselect": "^3.0.1"
   },
   "devDependencies": {
+    "cpy-cli": "^1.0.1",
     "react-scripts": "1.0.7"
   }
 }
