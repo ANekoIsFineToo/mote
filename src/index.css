@@ -46,10 +46,10 @@ div.CodeMirror span.CodeMirror-matchingbracket {
 .cm-s-default .cm-error { color: #d9534f; }
 .cm-invalidchar { color: #d9534f; }
 
-.CodeMirror-selected { background: #eceeef; }
-.CodeMirror-focused .CodeMirror-selected { background: #eceeef; }
-.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #eceeef; }
-.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #eceeef; }
+.CodeMirror-selected { background-color: #eceeef; }
+.CodeMirror-focused .CodeMirror-selected { background-color: #eceeef; }
+.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background-color: #eceeef; }
+.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background-color: #eceeef; }
 
 .contains-task-list {
   list-style: none;
@@ -76,4 +76,9 @@ div.CodeMirror span.CodeMirror-matchingbracket {
 
 .noty_type__success .noty_progressbar {
   background-color: #3c763d;
+}
+
+.router-group > .animated {
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
 }

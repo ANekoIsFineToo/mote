@@ -31,6 +31,7 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/addon/display/fullscreen.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'noty/lib/noty.css';
+import 'animate.css/animate.css';
 import './index.css';
 
 CodeMirror.commands.autocomplete = cm => cm.showHint({ hint: CodeMirror.hint.anyword });
