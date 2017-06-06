@@ -8,14 +8,17 @@ import PropTypes from 'prop-types';
 
 import * as note from '../../actions/note';
 import NoteOutput from '../../components/NoteOutput';
+import NoteVersions from '../../components/NoteVersions';
 import * as fromRoot from '../../reducers';
 
 class Note extends PureComponent {
   static propTypes = {
     match: PropTypes.object.isRequired,
     note: ImmutablePropTypes.map.isRequired,
+    versions: ImmutablePropTypes.list.isRequired,
     loadNote: PropTypes.func.isRequired,
     removeNote: PropTypes.func.isRequired,
+    loadVersions: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -25,7 +28,10 @@ class Note extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.loadNote(parseInt(this.props.match.params.id, 10));
+    const id = parseInt(this.props.match.params.id, 10);
+
+    this.props.loadNote(id);
+    this.props.loadVersions(id);
   }
 
   removeNote() {
@@ -55,6 +61,12 @@ class Note extends PureComponent {
             </Col>
           </Row>
 
+          <Row className="mb-3">
+            <Col>
+              <NoteVersions versions={this.props.versions} />
+            </Col>
+          </Row>
+
           <Row>
             <Col>
               <NoteOutput markdown={this.props.note.get('content')} />
@@ -68,6 +80,7 @@ class Note extends PureComponent {
 
 const mapStateToProps = state => ({
   note: fromRoot.getNoteNote(state),
+  versions: fromRoot.getNoteVersions(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -76,6 +89,9 @@ const mapDispatchToProps = dispatch => ({
   },
   removeNote(id) {
     dispatch(note.removeNote(id));
+  },
+  loadVersions(id) {
+    dispatch(note.loadVersions(id));
   },
 });
 

@@ -15,7 +15,7 @@ const initialState = fromJS({
     content: '',
     bgColor: '',
   },
-  version: [],
+  versions: [],
 });
 
 export const reducer = (state = initialState, action) => {
@@ -32,6 +32,10 @@ export const reducer = (state = initialState, action) => {
       return state.update('note', note => note.merge(action.payload));
     }
 
+    case note.SET_VERSIONS: {
+      return state.update('versions', () => action.payload);
+    }
+
     default: {
       return state;
     }
@@ -40,3 +44,4 @@ export const reducer = (state = initialState, action) => {
 
 export const getDraft = state => state.get('draft');
 export const getNote = state => state.get('note');
+export const getVersions = state => state.get('versions');

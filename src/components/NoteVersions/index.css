@@ -1,0 +1,10 @@
+.NoteVersions .versions {
+  display: table-caption;
+  height: 0;
+  overflow: hidden;
+}
+
+.NoteVersions .versions-expanded {
+  display: table-row-group;
+  height: 100%;
+}

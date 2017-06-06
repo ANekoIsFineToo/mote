@@ -92,3 +92,8 @@ div.CodeMirror span.CodeMirror-matchingbracket {
   -webkit-animation-duration: .3s;
   animation-duration: .3s;
 }
+
+.animated-3 {
+  -webkit-animation-duration: .3s;
+  animation-duration: .3s;
+}

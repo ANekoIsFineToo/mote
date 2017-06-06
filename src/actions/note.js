@@ -9,6 +9,8 @@ export const LOAD_NOTE = '@@note/LOAD_NOTE';
 export const SET_NOTE = '@@note/SET_NOTE';
 export const SAVE_NOTE = '@@note/SAVE_NOTE';
 export const REMOVE_NOTE = '@@note/REMOVE_NOTE';
+export const LOAD_VERSIONS = '@@note/LOAD_VERSIONS';
+export const SET_VERSIONS = '@@note/SET_VERSIONS';
 
 export const loadDraft = createAction(LOAD_DRAFT);
 export const setDraft = createAction(SET_DRAFT);
@@ -19,3 +21,5 @@ export const loadNote = createAction(LOAD_NOTE);
 export const setNote = createAction(SET_NOTE);
 export const saveNote = createAction(SAVE_NOTE);
 export const removeNote = createAction(REMOVE_NOTE);
+export const loadVersions = createAction(LOAD_VERSIONS);
+export const setVersions = createAction(SET_VERSIONS);
