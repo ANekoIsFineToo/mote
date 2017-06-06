@@ -93,7 +93,6 @@ div.CodeMirror span.CodeMirror-matchingbracket {
   animation-duration: .3s;
 }
 
-.animated-3 {
-  -webkit-animation-duration: .3s;
-  animation-duration: .3s;
+.b-transparent {
+  background-color: transparent !important;
 }

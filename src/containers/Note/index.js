@@ -3,12 +3,11 @@ import { Helmet } from 'react-helmet';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { Button, Col, Container, Input, Row } from 'reactstrap';
+import { Button, Col, Container, Input, Modal, ModalBody, Row, Table } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import * as note from '../../actions/note';
 import NoteOutput from '../../components/NoteOutput';
-import NoteVersions from '../../components/NoteVersions';
 import * as fromRoot from '../../reducers';
 
 class Note extends PureComponent {
@@ -24,7 +23,12 @@ class Note extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {
+      versionsOpen: false,
+    };
+
     this.removeNote = this.removeNote.bind(this);
+    this.toggleVersions = this.toggleVersions.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +40,12 @@ class Note extends PureComponent {
 
   removeNote() {
     this.props.removeNote(parseInt(this.props.match.params.id, 10));
+  }
+
+  toggleVersions() {
+    this.setState({
+      versionsOpen: !this.state.versionsOpen,
+    });
   }
 
   getTitle() {
@@ -51,19 +61,14 @@ class Note extends PureComponent {
 
         <Container>
           <Row className="mb-3">
-            <Col xs="9">
+            <Col xs="8">
               <Input static>{this.getTitle()}</Input>
             </Col>
 
-            <Col className="d-flex justify-content-between" xs="3">
+            <Col className="d-flex justify-content-between" xs="4">
               <Button className="mr-2" color="primary" tag={Link} to={this.props.match.url + '/edit'}>Editar</Button>
+              <Button outline className="mr-2" color="info" onClick={this.toggleVersions}>Versiones</Button>
               <Button outline color="danger" onClick={this.removeNote}>Eliminar</Button>
-            </Col>
-          </Row>
-
-          <Row className="mb-3">
-            <Col>
-              <NoteVersions versions={this.props.versions} />
             </Col>
           </Row>
 
@@ -73,6 +78,23 @@ class Note extends PureComponent {
             </Col>
           </Row>
         </Container>
+
+        <Modal
+          isOpen={this.state.versionsOpen}
+          toggle={this.toggleVersions}
+          contentClassName="border-0 b-transparent">
+          <ModalBody>
+            <Table inverse>
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    Title
+                  </th>
+                </tr>
+              </tbody>
+            </Table>
+          </ModalBody>
+        </Modal>
       </div>
     );
   }
