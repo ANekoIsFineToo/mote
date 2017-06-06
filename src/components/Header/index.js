@@ -37,6 +37,12 @@ class Header extends Component {
                 <NavLink tag={ActiveLink} to="/note/add">Añadir nota</NavLink>
               </NavItem>
             </Nav>
+
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="https://github.com/DarkerTV/mote" target="_blank">Github</NavLink>
+              </NavItem>
+            </Nav>
           </Collapse>
         </Navbar>
       </Container>
