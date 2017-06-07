@@ -6,6 +6,7 @@ import { call, put, takeEvery, takeLatest, select } from 'redux-saga/effects';
 
 import db from '../db';
 import * as note from '../actions/note';
+import { generateRandomColor } from '../util/note';
 
 function* loadDraft(action) {
   try {
@@ -37,7 +38,7 @@ function* saveNewNote(action) {
     const data = action.payload;
     const title = data.get('title');
     const content = data.get('content');
-    const bgColor = data.get('bgColor');
+    const bgColor = generateRandomColor();
 
     const id = yield call([db.notes, 'put'], { title, content, bgColor });
     yield call([db.drafts, 'put'], { note: id, title, content, bgColor });
