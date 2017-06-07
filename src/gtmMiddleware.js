@@ -37,11 +37,29 @@ export default () => {
     }),
   };
 
+  const restoreVersion = {
+    eventFields: action => ({
+      hitType: 'event',
+      eventCategory: 'Version',
+      eventAction: 'Restore',
+    }),
+  };
+
+  const removeVersion = {
+    eventFields: action => ({
+      hitType: 'event',
+      eventCategory: 'Version',
+      eventAction: 'Remove',
+    }),
+  };
+
   const eventsMap = {
     '@@router/LOCATION_CHANGE': pageView,
     [note.SAVE_NEW_NOTE]: newNote,
     [note.SAVE_NOTE]: updateNote,
     [note.REMOVE_NOTE]: removeNote,
+    [note.RESTORE_VERSION]: restoreVersion,
+    [note.REMOVE_VERSION]: removeVersion,
   };
 
   const offlineStorage = offlineWeb(fromRoot.getConnectionIsConnected);
