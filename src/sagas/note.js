@@ -122,11 +122,77 @@ function* removeNote(action) {
   }
 }
 
+function* loadVersion(action) {
+  try {
+    const id = action.payload;
+
+    const data = yield call([db.versions, 'get'], id);
+
+    yield put(note.setVersion(fromJS(data)));
+  } catch (err) {
+    log.error(err);
+
+    new Noty({ type: 'error', text: 'Se ha producido un error al intentar cargar la versión.' }).show();
+  }
+}
+
+function* restoreVersion(action) {
+  try {
+    const id = action.payload;
+    const version = yield call([db.versions, 'get'], id);
+    const parent = version.note;
+    const data = yield call([db.notes, 'get'], parent);
+
+    let { title, content, bgColor } = version;
+
+    yield call([db.drafts, 'put'], { note: parent, title, content, bgColor });
+    yield call([db.notes, 'put'], { id: parent, title, content, bgColor });
+
+    title = data.title;
+    content = data.content;
+    bgColor = data.bgColor;
+
+    yield call([db.versions, 'put'], { note: parent, title, content, bgColor });
+
+    yield put(push('/note/' + parent));
+
+    new Noty({ type: 'success', text: 'La versión ha sido restaurada correctamente.' }).show();
+  } catch (err) {
+    log.error(err);
+
+    new Noty({ type: 'error', text: 'Se ha producido un error al intentar restaurar la versión.' }).show();
+  }
+}
+
+function* removeVersion(action) {
+  try {
+    const store = yield select();
+    const currentPath = store.get('router').location.pathname;
+
+    const id = action.payload;
+    const version = yield call([db.versions, 'get'], id);
+
+    yield call([db.versions.where('id').equals(id), 'delete']);
+
+    if (currentPath.includes('version')) {
+      yield put(push('/note/' + version.note));
+    } else {
+      yield put(note.loadVersions(version.note));
+    }
+
+    new Noty({ type: 'success', text: 'La versión ha sido eliminada correctamente.' }).show();
+  } catch (err) {
+    log.error(err);
+
+    new Noty({ type: 'error', text: 'Se ha producido un error al intentar eliminar la versión.' }).show();
+  }
+}
+
 function* loadVersions(action) {
   try {
     const id = action.payload;
 
-    const versions = yield call([db.versions.where('note').equals(id), 'toArray'],);
+    const versions = yield call([db.versions.where('note').equals(id), 'toArray']);
 
     yield put(note.setVersions(fromJS(versions)));
   } catch (err) {
@@ -141,6 +207,9 @@ function* noteSaga() {
   yield takeLatest(note.LOAD_NOTE, loadNote);
   yield takeEvery(note.SAVE_NOTE, saveNote);
   yield takeEvery(note.REMOVE_NOTE, removeNote);
+  yield takeLatest(note.LOAD_VERSION, loadVersion);
+  yield takeEvery(note.RESTORE_VERSION, restoreVersion);
+  yield takeEvery(note.REMOVE_VERSION, removeVersion);
   yield takeLatest(note.LOAD_VERSIONS, loadVersions);
 }
 

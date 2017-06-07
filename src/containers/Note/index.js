@@ -3,11 +3,12 @@ import { Helmet } from 'react-helmet';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { Button, Col, Container, Input, Modal, ModalBody, Row, Table } from 'reactstrap';
+import { Button, Col, Container, Input, Row } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import * as note from '../../actions/note';
 import NoteOutput from '../../components/NoteOutput';
+import NoteVersionsModal from '../../components/NoteVersionsModal';
 import * as fromRoot from '../../reducers';
 
 class Note extends PureComponent {
@@ -17,6 +18,7 @@ class Note extends PureComponent {
     versions: ImmutablePropTypes.list.isRequired,
     loadNote: PropTypes.func.isRequired,
     removeNote: PropTypes.func.isRequired,
+    removeVersion: PropTypes.func.isRequired,
     loadVersions: PropTypes.func.isRequired,
   };
 
@@ -29,7 +31,6 @@ class Note extends PureComponent {
 
     this.removeNote = this.removeNote.bind(this);
     this.toggleVersions = this.toggleVersions.bind(this);
-    this.mapVersions = this.mapVersions.bind(this);
   }
 
   componentDidMount() {
@@ -51,26 +52,6 @@ class Note extends PureComponent {
 
   getTitle() {
     return this.props.note.get('title') || 'Sin título';
-  }
-
-  mapVersions(version) {
-    return (
-      <tr key={version.get('id')}>
-        <th scope="row">{version.get('title')}</th>
-        <td className="text-right">
-          <Button
-            className="mr-2"
-            color="primary"
-            size="sm"
-            onClick={this.toggleVersions}
-            tag={Link}
-            to={`${this.props.match.url}/version/${version.get('id')}`}>
-            Ver
-          </Button>
-          <Button outline color="warning" size="sm">Eliminar</Button>
-        </td>
-      </tr>
-    );
   }
 
   render() {
@@ -100,19 +81,12 @@ class Note extends PureComponent {
           </Row>
         </Container>
 
-        <Modal
+        <NoteVersionsModal
           isOpen={this.state.versionsOpen}
           toggle={this.toggleVersions}
-          size="lg"
-          contentClassName="border-0 b-transparent">
-          <ModalBody>
-            <Table inverse responsive>
-              <tbody>
-                {this.props.versions.reverse().map(this.mapVersions)}
-              </tbody>
-            </Table>
-          </ModalBody>
-        </Modal>
+          match={this.props.match}
+          versions={this.props.versions}
+          removeVersion={this.props.removeVersion} />
       </div>
     );
   }
@@ -129,6 +103,9 @@ const mapDispatchToProps = dispatch => ({
   },
   removeNote(id) {
     dispatch(note.removeNote(id));
+  },
+  removeVersion(id) {
+    dispatch(note.removeVersion(id));
   },
   loadVersions(id) {
     dispatch(note.loadVersions(id));
