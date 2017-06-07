@@ -123,6 +123,16 @@ function* removeNote(action) {
   }
 }
 
+function* loadNotes() {
+  try {
+    const data = yield call([db.notes.reverse(), 'toArray']);
+
+    yield put(note.setNotes(fromJS(data)));
+  } catch (err) {
+    log.error(err);
+  }
+}
+
 function* loadVersion(action) {
   try {
     const id = action.payload;
@@ -193,7 +203,7 @@ function* loadVersions(action) {
   try {
     const id = action.payload;
 
-    const versions = yield call([db.versions.where('note').equals(id), 'toArray']);
+    const versions = yield call([db.versions.where('note').equals(id).reverse(), 'toArray']);
 
     yield put(note.setVersions(fromJS(versions)));
   } catch (err) {
@@ -208,6 +218,7 @@ function* noteSaga() {
   yield takeLatest(note.LOAD_NOTE, loadNote);
   yield takeEvery(note.SAVE_NOTE, saveNote);
   yield takeEvery(note.REMOVE_NOTE, removeNote);
+  yield takeLatest(note.LOAD_NOTES, loadNotes);
   yield takeLatest(note.LOAD_VERSION, loadVersion);
   yield takeEvery(note.RESTORE_VERSION, restoreVersion);
   yield takeEvery(note.REMOVE_VERSION, removeVersion);

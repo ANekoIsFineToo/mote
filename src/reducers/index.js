@@ -17,5 +17,6 @@ export const getConnectionIsConnected = createSelector(getConnection, fromConnec
 export const getNote = state => state.get('note');
 export const getNoteDraft = createSelector(getNote, fromNote.getDraft);
 export const getNoteNote = createSelector(getNote, fromNote.getNote);
+export const getNoteNotes = createSelector(getNote, fromNote.getNotes);
 export const getNoteVersion = createSelector(getNote, fromNote.getVersion);
 export const getNoteVersions = createSelector(getNote, fromNote.getVersions);

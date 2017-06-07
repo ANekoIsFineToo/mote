@@ -16,6 +16,7 @@ class NoteVersionsModal extends PureComponent {
   render() {
     return (
       <Modal
+        className="NoteVersionsModal"
         isOpen={this.props.isOpen}
         toggle={this.props.toggle}
         size="lg"
@@ -27,7 +28,7 @@ class NoteVersionsModal extends PureComponent {
               <Table inverse responsive>
                 <tbody>
                 {
-                  this.props.versions.reverse().map((version) => (
+                  this.props.versions.map((version) => (
                     <tr key={version.get('id')}>
                       <th scope="row">{version.get('title')}</th>
                       <td className="text-right">

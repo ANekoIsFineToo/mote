@@ -15,6 +15,7 @@ const initialState = fromJS({
     content: '',
     bgColor: '',
   },
+  notes: [],
   version: {
     id: 1,
     note: 1,
@@ -39,6 +40,10 @@ export const reducer = (state = initialState, action) => {
       return state.update('note', note => note.merge(action.payload));
     }
 
+    case note.SET_NOTES: {
+      return state.update('notes', () => action.payload);
+    }
+
     case note.SET_VERSION: {
       return state.update('version', version => version.merge(action.payload));
     }
@@ -55,5 +60,6 @@ export const reducer = (state = initialState, action) => {
 
 export const getDraft = state => state.get('draft');
 export const getNote = state => state.get('note');
+export const getNotes = state => state.get('notes');
 export const getVersion = state => state.get('version');
 export const getVersions = state => state.get('versions');
