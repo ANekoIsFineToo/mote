@@ -101,7 +101,11 @@ const styleSheet = createStyleSheet('AppFrame', theme => ({
   },
   pagesContainer: {
     flex: '1 0 100%',
-    paddingTop: '64px',
+    overflow: 'hidden',
+    paddingTop: 64 + theme.spacing.unit * 5,
+    paddingBottom: theme.spacing.unit * 5,
+    paddingLeft: theme.spacing.unit * 5,
+    paddingRight: theme.spacing.unit * 5,
     transition: theme.transitions.create('padding-left', {
       duration: theme.transitions.duration.leavingScreen,
       easing: theme.transitions.easing.sharp
@@ -109,7 +113,7 @@ const styleSheet = createStyleSheet('AppFrame', theme => ({
   },
   [theme.breakpoints.up('lg')]: {
     pagesContainerSpaced: {
-      paddingLeft: '250px',
+      paddingLeft: 250 + theme.spacing.unit * 5,
       transition: theme.transitions.create('padding-left', {
         duration: theme.transitions.duration.enteringScreen,
         easing: theme.transitions.easing.easeOut

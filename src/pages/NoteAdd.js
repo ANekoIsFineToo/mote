@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as common from '../actions/common';
+import NoteModify from '../components/NoteModify';
 
 class NoteAdd extends PureComponent {
   static propTypes = {
@@ -15,9 +16,7 @@ class NoteAdd extends PureComponent {
 
   render() {
     return (
-      <div>
-        NoteAdd
-      </div>
+      <NoteModify />
     );
   }
 }
