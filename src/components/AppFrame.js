@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react';
+import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import compose from 'recompose/compose';
 import classNames from 'classnames';
@@ -6,12 +8,13 @@ import withWidth, { isWidthUp } from 'material-ui/utils/withWidth';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
-import ToolBar from 'material-ui/Toolbar';
+import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import MenuIcon from 'material-ui-icons/Menu';
 import PropTypes from 'prop-types';
 
 import AppDrawer from './AppDrawer';
+import * as fromRoot from '../reducers';
 import Home from '../pages/Home';
 import NoteAdd from '../pages/NoteAdd';
 
@@ -19,10 +22,11 @@ class AppFrame extends PureComponent {
   static propTypes = {
     classes: PropTypes.object.isRequired,
     width: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
   };
 
   state = {
-    drawerOpen: true,
+    drawerOpen: isWidthUp('lg', this.props.width),
   };
 
   handleDrawerClose = () => {
@@ -39,19 +43,23 @@ class AppFrame extends PureComponent {
 
     return (
       <div className={classes.appFrame}>
+        <Helmet titleTemplate="%s / Mote" defaultTitle="Mote">
+          <title>{this.props.title}</title>
+        </Helmet>
+
         <AppBar>
-          <ToolBar>
+          <Toolbar>
             <IconButton className={classes.menuIcon} contrast onClick={this.handleDrawerToggle}>
               <MenuIcon />
             </IconButton>
 
             <Typography type="title" colorInherit noWrap>
-              Mote
+              {this.props.title || 'Mote'}
             </Typography>
-          </ToolBar>
+          </Toolbar>
         </AppBar>
 
-        <AppDrawer open={this.state.drawerOpen} docked={drawerDocked} onRequestClose={this.handleDrawerClose} />
+        <AppDrawer title={this.props.title} open={this.state.drawerOpen} docked={drawerDocked} onRequestClose={this.handleDrawerClose} />
 
         <div className={classNames(classes.pagesContainer, { [classes.pagesContainerSpaced]: this.state.drawerOpen })}>
           <Switch>
@@ -110,4 +118,8 @@ const styleSheet = createStyleSheet('AppFrame', theme => ({
   }
 }));
 
-export default compose(withStyles(styleSheet), withWidth())(AppFrame);
+const mapStateToProps = state => ({
+  title: fromRoot.getCommonTitle(state),
+});
+
+export default compose(withStyles(styleSheet), withWidth(), connect(mapStateToProps))(AppFrame);
