@@ -6,6 +6,8 @@ import Hidden from 'material-ui/Hidden';
 import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
 
+import NoteInput from './NoteInput';
+
 class NoteModify extends PureComponent {
   static propTypes = {
     classes: PropTypes.object.isRequired,
@@ -26,7 +28,7 @@ class NoteModify extends PureComponent {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          Input
+          <NoteInput />
         </Grid>
 
         <Hidden smDown>
