@@ -6,15 +6,18 @@ import createHistory from 'history/createBrowserHistory';
 
 import 'typeface-roboto';
 
-import 'codemirror/addon/comment/continuecomment.js';
-import 'codemirror/addon/display/fullscreen.js';
+import 'codemirror/addon/comment/continuecomment';
+import 'codemirror/addon/display/fullscreen';
 import 'codemirror/addon/display/placeholder';
-import 'codemirror/addon/edit/continuelist.js';
-import 'codemirror/addon/edit/matchbrackets.js';
-import 'codemirror/addon/edit/closebrackets.js';
-import 'codemirror/addon/hint/show-hint.js';
-import 'codemirror/addon/hint/anyword-hint.js';
-import 'codemirror/addon/runmode/runmode.js';
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/edit/closetag';
+import 'codemirror/addon/edit/continuelist';
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/edit/matchtags';
+import 'codemirror/addon/fold/xml-fold';
+import 'codemirror/addon/hint/show-hint';
+import 'codemirror/addon/hint/anyword-hint';
+import 'codemirror/addon/runmode/runmode';
 
 import 'codemirror/mode/gfm/gfm';
 import 'codemirror/mode/htmlmixed/htmlmixed';
