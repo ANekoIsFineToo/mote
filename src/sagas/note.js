@@ -54,6 +54,18 @@ function* saveNewNote(action) {
   }
 }
 
+function* loadNote(action) {
+  try {
+    const data = yield call([db.Notes, 'get'], action.payload);
+
+    yield put(note.setNote(fromJS(data)));
+  } catch (err) {
+    log.error(err);
+
+    // TODO: Display SnackBar when available
+  }
+}
+
 function* noteSaga() {
   yield takeLatest(note.LOAD_DRAFT, loadDraft);
   yield takeLatest(note.SAVE_DRAFT, saveDraft);

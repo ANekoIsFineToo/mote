@@ -9,12 +9,22 @@ export const initialState = fromJS({
     content: '',
     color: '',
   },
+  note: {
+    id: 1,
+    title: '',
+    content: '',
+    color: '',
+  },
 });
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case note.SET_DRAFT: {
       return state.update('draft', draft => draft.merge(action.payload));
+    }
+
+    case note.SET_NOTE: {
+      return state.update('note', note => note.merge(action.payload));
     }
 
     default: {
