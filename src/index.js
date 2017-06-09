@@ -27,6 +27,7 @@ import 'codemirror/mode/python/python';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/addon/display/fullscreen.css';
+import 'bootstrap/dist/css/bootstrap-reboot.css';
 
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';

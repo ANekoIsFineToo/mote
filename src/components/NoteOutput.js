@@ -3,6 +3,7 @@ import CodeMirror from 'codemirror';
 import { safeHtml } from 'common-tags';
 import MarkdownIt from 'markdown-it';
 import markdownTaskLists from 'markdown-it-task-lists';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 
 class NoteOutput extends PureComponent {
@@ -55,4 +56,12 @@ class NoteOutput extends PureComponent {
   }
 }
 
-export default NoteOutput;
+const styleSheet = createStyleSheet('NoteOutput', theme => ({
+  '@global': {
+    '.cm-s-default h1, .cm-s-default h2, .cm-s-default h3, .cm-s-default h4, .cm-s-default h5, .cm-s-default h6': {
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+  },
+}));
+
+export default withStyles(styleSheet)(NoteOutput);

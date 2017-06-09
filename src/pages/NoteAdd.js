@@ -12,11 +12,13 @@ class NoteAdd extends PureComponent {
   static propTypes = {
     draft: ImmutablePropTypes.map.isRequired,
     setTitle: PropTypes.func.isRequired,
+    loadDraft: PropTypes.func.isRequired,
     saveDraft: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
     this.props.setTitle('Añadir Nota');
+    this.props.loadDraft(0);
   }
 
   render() {
@@ -34,8 +36,11 @@ const mapDispatchToProps = dispatch => ({
   setTitle(title) {
     dispatch(common.setTitle(title));
   },
+  loadDraft(id) {
+    dispatch(note.loadDraft(id));
+  },
   saveDraft(draft) {
-    dispatch(note.setDraft(draft));
+    dispatch(note.saveDraft(draft));
   },
 });
 

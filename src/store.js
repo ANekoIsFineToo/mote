@@ -5,6 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProductio
 import createSagaMiddleware from 'redux-saga';
 
 import reducer from './reducers';
+import noteSaga from './sagas/note';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,6 +20,8 @@ export default (history, initialState = {}) => {
   ];
 
   const store = createStore(reducer, fromJS(initialState), composeWithDevTools(...enhancers));
+
+  sagaMiddleware.run(noteSaga);
 
   return store;
 };
