@@ -15,7 +15,12 @@ class NoteModify extends PureComponent {
     classes: PropTypes.object.isRequired,
     draft: ImmutablePropTypes.map.isRequired,
     saveDraft: PropTypes.func.isRequired,
+    saveNote: PropTypes.func.isRequired,
   };
+
+  saveNote = () => this.props.saveNote(this.props.draft);
+
+  clearAll = () => this.props.saveDraft(this.props.draft.set('title', '').set('content', ''));
 
   handleTitleChange = e => this.props.saveDraft(this.props.draft.set('title', e.target.value));
 
@@ -36,8 +41,8 @@ class NoteModify extends PureComponent {
         </Grid>
 
         <Grid item xs={12} md={4} className={classes.actionButtons}>
-          <Button raised primary>Guardar</Button>
-          <Button raised accent>Vaciar</Button>
+          <Button raised primary onClick={this.saveNote}>Guardar</Button>
+          <Button raised accent onClick={this.clearAll}>Vaciar</Button>
         </Grid>
 
         <Grid item xs={12} md={6}>

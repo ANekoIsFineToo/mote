@@ -1,9 +1,11 @@
 import { fromJS } from 'immutable';
 import log from 'loglevel';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import db from '../db';
 import * as note from '../actions/note';
+import * as fromNote from '../reducers/note';
 
 function* loadDraft(action) {
   try {
@@ -26,9 +28,37 @@ function* saveDraft(action) {
   }
 }
 
+function* resetDraft() {
+  yield put(note.saveDraft(fromNote.initialState.get('draft')));
+}
+
+function* saveNewNote(action) {
+  try {
+    const data = action.payload;
+    const title = data.get('title');
+    const content = data.get('content');
+    const color = data.get('color');
+
+    const id = yield call([db.Notes, 'put'], { title, content, color });
+    yield call([db.Drafts, 'put'], data.toJS());
+
+    yield put(push('/note/' + id));
+
+    // TODO: Display SnackBar when available
+
+    yield put(note.resetDraft());
+  } catch (err) {
+    log.error(err);
+
+    // TODO: Display SnackBar when available
+  }
+}
+
 function* noteSaga() {
   yield takeLatest(note.LOAD_DRAFT, loadDraft);
   yield takeLatest(note.SAVE_DRAFT, saveDraft);
+  yield takeEvery(note.RESET_DRAFT, resetDraft);
+  yield takeEvery(note.SAVE_NEW_NOTE, saveNewNote);
 }
 
 export default noteSaga;

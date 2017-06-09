@@ -14,6 +14,7 @@ class NoteAdd extends PureComponent {
     setTitle: PropTypes.func.isRequired,
     loadDraft: PropTypes.func.isRequired,
     saveDraft: PropTypes.func.isRequired,
+    saveNewNote: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -23,7 +24,7 @@ class NoteAdd extends PureComponent {
 
   render() {
     return (
-      <NoteModify draft={this.props.draft} saveDraft={this.props.saveDraft} />
+      <NoteModify draft={this.props.draft} saveDraft={this.props.saveDraft} saveNote={this.props.saveNewNote} />
     );
   }
 }
@@ -41,6 +42,9 @@ const mapDispatchToProps = dispatch => ({
   },
   saveDraft(draft) {
     dispatch(note.saveDraft(draft));
+  },
+  saveNewNote(draft) {
+    dispatch(note.saveNewNote(draft));
   },
 });
 

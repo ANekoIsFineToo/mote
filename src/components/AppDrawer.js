@@ -111,9 +111,13 @@ const styleSheet = createStyleSheet('AppDrawer', theme => ({
     borderRadius: 0,
     justifyContent: 'flex-start',
     textTransform: 'none',
+    textDecoration: 'none !important',
+    '&:hover': {
+      color: 'inherit',
+    },
   }),
   buttonActive: {
-    color: theme.palette.accent[500],
+    color: theme.palette.accent[500] + ' !important',
   },
   divider: {
     marginTop: theme.spacing.unit,

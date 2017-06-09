@@ -2,11 +2,12 @@ import { fromJS } from 'immutable';
 
 import * as note from '../actions/note';
 
-const initialState = fromJS({
+export const initialState = fromJS({
   draft: {
     note: 0,
     title: '',
     content: '',
+    color: '',
   },
 });
 
