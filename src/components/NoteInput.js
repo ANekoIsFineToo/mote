@@ -2,8 +2,33 @@ import React, { PureComponent } from 'react';
 import CodeMirror from 'react-codemirror';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import * as colors from 'material-ui/styles/colors';
+import PropTypes from 'prop-types';
 
 class NoteInput extends PureComponent {
+  static propTypes = {
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+  };
+
+  state = {
+    value: '',
+  };
+
+  codeMirror = null;
+
+  handleChange = value => {
+    this.setState({ value });
+
+    if (this.props.onChange) {
+      this.props.onChange(value);
+    }
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if ((this.state.value === '' && this.state.value !== nextProps.value) || nextProps.value === '') {
+      this.codeMirror.getCodeMirror().setValue(nextProps.value);
+    }
+  }
 
   render() {
     const codeMirrorOptions = {
@@ -25,7 +50,13 @@ class NoteInput extends PureComponent {
     };
 
     return (
-      <CodeMirror autoFocus options={codeMirrorOptions} />
+      <CodeMirror
+        autoFocus
+        options={codeMirrorOptions}
+        onChange={this.handleChange}
+        defaultValue={this.props.value}
+        ref={codeMirror => (this.codeMirror = codeMirror)}
+      />
     );
   }
 }

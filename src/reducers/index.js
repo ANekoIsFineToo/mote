@@ -2,12 +2,17 @@ import { routerReducer } from 'react-router-redux';
 import { combineReducers } from 'redux-immutable';
 import { createSelector } from 'reselect';
 
-import * as common from './common';
+import * as fromCommon from './common';
+import * as fromNote from './note';
 
 export default combineReducers({
   router: routerReducer,
-  common: common.default,
+  common: fromCommon.default,
+  note: fromNote.default,
 });
 
 export const getCommon = state => state.get('common');
-export const getCommonTitle = createSelector(getCommon, common.getTitle);
+export const getCommonTitle = createSelector(getCommon, fromCommon.getTitle);
+
+export const getNote = state => state.get('note');
+export const getNoteDraft = createSelector(getNote, fromNote.getDraft);

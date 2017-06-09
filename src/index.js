@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
+import CodeMirror from 'codemirror';
 import createHistory from 'history/createBrowserHistory';
 
 import 'typeface-roboto';
@@ -30,6 +31,10 @@ import 'codemirror/addon/display/fullscreen.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import createStore from './store';
+
+CodeMirror.commands.autocomplete = cm => cm.showHint({ hint: CodeMirror.hint.anyword });
+CodeMirror.commands.toggleFullScreen = cm => cm.setOption('fullScreen', !cm.getOption('fullScreen'));
+CodeMirror.commands.closeFullScreen = cm => cm.getOption('fullScreen') && cm.setOption('fullScreen', false);
 
 const history = createHistory();
 const store = createStore(history);

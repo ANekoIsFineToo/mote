@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
@@ -7,11 +8,18 @@ import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
 
 import NoteInput from './NoteInput';
+import NoteOutput from './NoteOutput';
 
 class NoteModify extends PureComponent {
   static propTypes = {
     classes: PropTypes.object.isRequired,
+    draft: ImmutablePropTypes.map.isRequired,
+    saveDraft: PropTypes.func.isRequired,
   };
+
+  handleTitleChange = e => this.props.saveDraft(this.props.draft.set('title', e.target.value));
+
+  handleContentChange = content => this.props.saveDraft(this.props.draft.set('content', content));
 
   render() {
     const { classes } = this.props;
@@ -19,7 +27,12 @@ class NoteModify extends PureComponent {
     return (
       <Grid container gutter={24}>
         <Grid item xs={12} md={8}>
-          <TextField id="title" label="Título de la Nota" />
+          <TextField
+            id="title"
+            label="Título de la Nota"
+            value={this.props.draft.get('title')}
+            onChange={this.handleTitleChange}
+          />
         </Grid>
 
         <Grid item xs={12} md={4} className={classes.actionButtons}>
@@ -28,12 +41,12 @@ class NoteModify extends PureComponent {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <NoteInput />
+          <NoteInput value={this.props.draft.get('content')} onChange={this.handleContentChange} />
         </Grid>
 
         <Hidden smDown>
           <Grid item md={6}>
-            Output
+            <NoteOutput content={this.props.draft.get('content')} />
           </Grid>
         </Hidden>
       </Grid>
