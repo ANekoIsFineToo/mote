@@ -47,7 +47,7 @@ class AppDrawer extends PureComponent {
                 <MenuIcon />
               </IconButton>
 
-              <Typography type="title" colorInherit noWrap>
+              <Typography type="title" noWrap>
                 {this.props.title || 'Mote'}
               </Typography>
             </Toolbar>

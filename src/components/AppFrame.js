@@ -14,6 +14,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import PropTypes from 'prop-types';
 
 import AppDrawer from './AppDrawer';
+import AppSnackbar from './AppSnackbar';
 import * as fromRoot from '../reducers';
 import Home from '../pages/Home';
 import Note from '../pages/Note';
@@ -30,13 +31,9 @@ class AppFrame extends PureComponent {
     drawerOpen: isWidthUp('lg', this.props.width),
   };
 
-  handleDrawerClose = () => {
-    this.setState({ drawerOpen: false });
-  };
+  handleDrawerClose = () => this.setState({ drawerOpen: false });
 
-  handleDrawerToggle = () => {
-    this.setState({ drawerOpen: !this.state.drawerOpen });
-  };
+  handleDrawerToggle = () => this.setState({ drawerOpen: !this.state.drawerOpen });
 
   render() {
     const { classes } = this.props;
@@ -50,11 +47,11 @@ class AppFrame extends PureComponent {
 
         <AppBar>
           <Toolbar>
-            <IconButton className={classes.menuIcon} contrast onClick={this.handleDrawerToggle}>
+            <IconButton className={classes.menuIcon} color="contrast" onClick={this.handleDrawerToggle}>
               <MenuIcon />
             </IconButton>
 
-            <Typography type="title" colorInherit noWrap>
+            <Typography type="title" color="inherit" noWrap>
               {this.props.title || 'Mote'}
             </Typography>
           </Toolbar>
@@ -69,6 +66,8 @@ class AppFrame extends PureComponent {
             <Route path="/note/:id" component={Note} />
           </Switch>
         </div>
+
+        <AppSnackbar />
       </div>
     );
   }
