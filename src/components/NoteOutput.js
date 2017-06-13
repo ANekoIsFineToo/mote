@@ -74,9 +74,6 @@ const styleSheet = createStyleSheet('NoteOutput', theme => ({
       paddingTop: theme.spacing.unit,
       paddingBottom: theme.spacing.unit,
     },
-    '.cm-s-default.note-output blockquote p': {
-      marginBottom: 0,
-    },
   },
 }));
 

@@ -20,6 +20,7 @@ import * as fromRoot from '../reducers';
 import Home from '../pages/Home';
 import Note from '../pages/Note';
 import NoteAdd from '../pages/NoteAdd';
+import NoteEdit from '../pages/NoteEdit';
 
 class AppFrame extends PureComponent {
   static propTypes = {
@@ -64,6 +65,7 @@ class AppFrame extends PureComponent {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/note/add" component={NoteAdd} />
+            <Route path="/note/:id/edit" component={NoteEdit} />
             <Route path="/note/:id" component={Note} />
           </Switch>
         </div>

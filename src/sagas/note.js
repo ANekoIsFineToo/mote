@@ -43,7 +43,7 @@ function* saveNewNote(action) {
     const color = data.get('color');
 
     const id = yield call([db.Notes, 'put'], { title, content, color });
-    yield call([db.Drafts, 'put'], data.toJS());
+    yield call([db.Drafts, 'put'], { note: id, title, content, color });
 
     yield put(push('/note/' + id));
 
@@ -75,6 +75,26 @@ function* loadNote(action) {
   }
 }
 
+function* saveNote(action) {
+  try {
+    const data = action.payload;
+    const id = data.get('note');
+    const title = data.get('title');
+    const content = data.get('content');
+    const color = data.get('color');
+
+    yield call([db.Notes, 'put'], { id, title, content, color });
+
+    yield put(push('/note/' + id));
+
+    yield put(push(common.setSnackbar('Nota guardada.')));
+  } catch (err) {
+    log.error(err);
+
+    yield put(common.setSnackbar('Error al guardar la nota.'));
+  }
+}
+
 function* removeNote(action) {
   try {
     const id = action.payload;
@@ -100,6 +120,7 @@ function* noteSaga() {
   yield takeEvery(note.RESET_DRAFT, resetDraft);
   yield takeEvery(note.SAVE_NEW_NOTE, saveNewNote);
   yield takeLatest(note.LOAD_NOTE, loadNote);
+  yield takeEvery(note.SAVE_NOTE, saveNote);
   yield takeEvery(note.REMOVE_NOTE, removeNote);
 }
 
