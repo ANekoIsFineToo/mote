@@ -89,7 +89,6 @@ class AppDrawer extends PureComponent {
 
         <Button
           className={classes.button}
-          component="a"
           href="https://github.com/DarkerTV/mote"
           target="_blank"
           onClick={this.handleButtonClick}
@@ -111,13 +110,9 @@ const styleSheet = createStyleSheet('AppDrawer', theme => ({
     borderRadius: 0,
     justifyContent: 'flex-start',
     textTransform: 'none',
-    textDecoration: 'none !important',
-    '&:hover': {
-      color: 'inherit',
-    },
   }),
   buttonActive: {
-    color: theme.palette.accent[500] + ' !important',
+    color: theme.palette.accent[500],
   },
   divider: {
     marginTop: theme.spacing.unit,
@@ -129,7 +124,7 @@ const styleSheet = createStyleSheet('AppDrawer', theme => ({
   [theme.breakpoints.up('lg')]: {
     paper: {
       paddingTop: theme.spacing.unit,
-      marginTop: '64px',
+      marginTop: theme.spacing.unit * 8,
       zIndex: theme.zIndex.appBar - 1,
     },
   },

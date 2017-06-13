@@ -12,7 +12,9 @@ function* loadDraft(action) {
   try {
     const data = yield call([db.Drafts, 'get'], action.payload);
 
-    yield put(note.setDraft(fromJS(data)));
+    if (data) {
+      yield put(note.setDraft(fromJS(data)));
+    }
   } catch (err) {
     log.error(err);
   }
@@ -59,11 +61,36 @@ function* loadNote(action) {
   try {
     const data = yield call([db.Notes, 'get'], action.payload);
 
-    yield put(note.setNote(fromJS(data)));
+    if (data) {
+      yield put(note.setNote(fromJS(data)));
+    } else {
+      yield put(push('/'));
+
+      yield put(common.setSnackbar('No se ha encontrado la nota especificada.'))
+    }
   } catch (err) {
     log.error(err);
 
     yield put(common.setSnackbar('Error al cargar la nota.'));
+  }
+}
+
+function* removeNote(action) {
+  try {
+    const id = action.payload;
+
+    // TODO: Move to trash instead of delete directly
+
+    yield call([db.Drafts.where('note').equals(id), 'delete']);
+    yield call([db.Notes.where('id').equals(id), 'delete']);
+
+    yield put(push('/'));
+
+    yield put(common.setSnackbar('Nota eliminada.'));
+  } catch (err) {
+    log.error(err);
+
+    yield put(common.setSnackbar('Error al eliminar la nota.'));
   }
 }
 
@@ -73,6 +100,7 @@ function* noteSaga() {
   yield takeEvery(note.RESET_DRAFT, resetDraft);
   yield takeEvery(note.SAVE_NEW_NOTE, saveNewNote);
   yield takeLatest(note.LOAD_NOTE, loadNote);
+  yield takeEvery(note.REMOVE_NOTE, removeNote);
 }
 
 export default noteSaga;

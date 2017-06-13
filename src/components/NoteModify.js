@@ -35,12 +35,13 @@ class NoteModify extends PureComponent {
           <TextField
             id="title"
             label="Título de la Nota"
+            className={classes.textField}
             value={this.props.draft.get('title')}
             onChange={this.handleTitleChange}
           />
         </Grid>
 
-        <Grid item xs={12} md={4} className={classes.actionButtons}>
+        <Grid container item xs={12} md={4} align="flex-end" justify="space-around" className={classes.actionButtons}>
           <Button raised color="primary" onClick={this.saveNote}>Guardar</Button>
           <Button raised color="accent" onClick={this.clearAll}>Vaciar</Button>
         </Grid>
@@ -60,10 +61,8 @@ class NoteModify extends PureComponent {
 }
 
 const styleSheet = createStyleSheet('NoteModify', theme => ({
-  actionButtons: {
-    display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'space-around',
+  textField: {
+    marginTop: `-${theme.spacing.unit * 4}px`,
   },
   [theme.breakpoints.up('md')]: {
     actionButtons: {
