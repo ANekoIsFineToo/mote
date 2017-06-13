@@ -13,7 +13,7 @@ import * as fromRoot from '../reducers';
 class AppSnackbar extends PureComponent {
   static propTypes = {
     classes: PropTypes.object.isRequired,
-    snackbar: PropTypes.string.isRequired,
+    snackbar: PropTypes.object.isRequired,
   };
 
   messageId = 0;

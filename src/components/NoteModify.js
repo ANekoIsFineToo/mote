@@ -30,7 +30,7 @@ class NoteModify extends PureComponent {
     const { classes } = this.props;
 
     return (
-      <Grid container gutter={24}>
+      <Grid container>
         <Grid item xs={12} md={8}>
           <TextField
             id="title"

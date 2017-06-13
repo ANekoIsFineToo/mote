@@ -72,6 +72,7 @@ function* noteSaga() {
   yield takeLatest(note.SAVE_DRAFT, saveDraft);
   yield takeEvery(note.RESET_DRAFT, resetDraft);
   yield takeEvery(note.SAVE_NEW_NOTE, saveNewNote);
+  yield takeLatest(note.LOAD_NOTE, loadNote);
 }
 
 export default noteSaga;

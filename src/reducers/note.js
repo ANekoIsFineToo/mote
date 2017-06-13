@@ -34,3 +34,4 @@ export default (state = initialState, action) => {
 };
 
 export const getDraft = state => state.get('draft');
+export const getNote = state => state.get('note');

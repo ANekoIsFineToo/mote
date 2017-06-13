@@ -4,6 +4,7 @@ import { safeHtml } from 'common-tags';
 import MarkdownIt from 'markdown-it';
 import markdownTaskLists from 'markdown-it-task-lists';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { blue } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
 
 class NoteOutput extends PureComponent {
@@ -19,6 +20,7 @@ class NoteOutput extends PureComponent {
     const options = {
       html: true,
       xhtmlOut: true,
+      breaks: true,
       linkify: true,
       typographer: true,
 
@@ -51,15 +53,29 @@ class NoteOutput extends PureComponent {
 
   render() {
     return (
-      <div className="cm-s-default" dangerouslySetInnerHTML={{ __html: this.md.render(this.props.content) }} />
+      <div className="cm-s-default note-output" dangerouslySetInnerHTML={{ __html: this.md.render(this.props.content) }} />
     );
   }
 }
 
 const styleSheet = createStyleSheet('NoteOutput', theme => ({
   '@global': {
-    '.cm-s-default h1, .cm-s-default h2, .cm-s-default h3, .cm-s-default h4, .cm-s-default h5, .cm-s-default h6': {
+    [`.cm-s-default.note-output h1, 
+    .cm-s-default.note-output h2, 
+    .cm-s-default.note-output h3, 
+    .cm-s-default.note-output h4, 
+    .cm-s-default.note-output h5, 
+    .cm-s-default.note-output h6`]: {
       fontWeight: theme.typography.fontWeightMedium,
+    },
+    '.cm-s-default.note-output blockquote': {
+      borderLeft: '3px solid ' + blue[500],
+      paddingLeft: theme.spacing.unit * 2,
+      paddingTop: theme.spacing.unit,
+      paddingBottom: theme.spacing.unit,
+    },
+    '.cm-s-default.note-output blockquote p': {
+      marginBottom: 0,
     },
   },
 }));
