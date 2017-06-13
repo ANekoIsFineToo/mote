@@ -1,21 +1,27 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import compose from 'recompose/compose';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+import { duration } from 'material-ui/styles/transitions';
 import CloseIcon from 'material-ui-icons/Close';
 import PropTypes from 'prop-types';
 
-import * as common from '../actions/common';
 import * as fromRoot from '../reducers';
 
 class AppSnackbar extends PureComponent {
   static propTypes = {
+    classes: PropTypes.object.isRequired,
     snackbar: PropTypes.string.isRequired,
-    setSnackbar: PropTypes.func.isRequired,
   };
 
+  messages = [];
+  processingMessages = false;
+
   state = {
-    snackbarOpen: true,
+    snackbarOpen: false,
+    message: '',
   };
 
   handleSnackbarClose = (e, reason) => {
@@ -26,16 +32,38 @@ class AppSnackbar extends PureComponent {
     this.setState({ snackbarOpen: false });
   };
 
-  componentDidMount() {
-    this.props.setSnackbar('message');
-    this.props.setSnackbar('another message');
-  }
+  processMessages = () => {
+    this.processingMessages = true;
+
+    if (this.messages.length) {
+      const message = this.messages.shift();
+
+      if (this.state.snackbarOpen) {
+        this.setState({ snackbarOpen: false });
+
+        setTimeout(() => this.setState({ snackbarOpen: true, message }), duration.leavingScreen);
+        setTimeout(this.processMessages, duration.enteringScreen + duration.leavingScreen + 1e3);
+      } else {
+        this.setState({ snackbarOpen: true, message });
+
+        setTimeout(this.processMessages, duration.enteringScreen + 1e3);
+      }
+    } else {
+      this.processingMessages = false;
+    }
+  };
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    this.messages.push(nextProps.snackbar);
+
+    if (!this.processingMessages) {
+      this.processMessages();
+    }
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
       <Snackbar
         anchorOrigin={{
@@ -46,15 +74,15 @@ class AppSnackbar extends PureComponent {
         autoHideDuration={6e3}
         onRequestClose={this.handleSnackbarClose}
         contentProps={{
-          'aria-describedby': 'message-id',
+          'aria-describedby': 'app-snackbar',
         }}
-        message={<span id="message-id">Note archived</span>}
+        message={<span id="app-snackbar">{this.state.message}</span>}
         action={[
           <IconButton
             key="close"
             aria-label="Close"
             color="inherit"
-            // className={classes.close}
+            className={classes.close}
             onClick={this.handleSnackbarClose}
           >
             <CloseIcon />
@@ -65,14 +93,15 @@ class AppSnackbar extends PureComponent {
   }
 }
 
+const styleSheet = createStyleSheet('AppSnackbar', theme => ({
+  close: {
+    width: theme.spacing.unit * 4,
+    height: theme.spacing.unit * 4,
+  },
+}));
+
 const mapStateToProps = state => ({
   snackbar: fromRoot.getCommonSnackbar(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  setSnackbar(message) {
-    dispatch(common.setSnackbar(message));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppSnackbar);
+export default compose(withStyles(styleSheet), connect(mapStateToProps))(AppSnackbar);
