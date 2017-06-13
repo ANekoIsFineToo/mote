@@ -4,7 +4,10 @@ import * as common from '../actions/common';
 
 const initialState = fromJS({
   title: '',
-  snackbar: '',
+  snackbar: {
+    id: 0,
+    message: '',
+  },
 });
 
 export default (state = initialState, action) => {
@@ -14,7 +17,7 @@ export default (state = initialState, action) => {
     }
 
     case common.SET_SNACKBAR: {
-      return state.set('snackbar', action.payload);
+      return state.update('snackbar', snackbar => fromJS({ id: snackbar.get('id') + 1, message: action.payload }));
     }
 
     default: {

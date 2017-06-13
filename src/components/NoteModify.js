@@ -41,8 +41,8 @@ class NoteModify extends PureComponent {
         </Grid>
 
         <Grid item xs={12} md={4} className={classes.actionButtons}>
-          <Button raised primary onClick={this.saveNote}>Guardar</Button>
-          <Button raised accent onClick={this.clearAll}>Vaciar</Button>
+          <Button raised color="primary" onClick={this.saveNote}>Guardar</Button>
+          <Button raised color="accent" onClick={this.clearAll}>Vaciar</Button>
         </Grid>
 
         <Grid item xs={12} md={6}>

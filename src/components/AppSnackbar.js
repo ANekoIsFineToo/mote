@@ -16,6 +16,7 @@ class AppSnackbar extends PureComponent {
     snackbar: PropTypes.string.isRequired,
   };
 
+  messageId = 0;
   messages = [];
   processingMessages = false;
 
@@ -54,10 +55,13 @@ class AppSnackbar extends PureComponent {
   };
 
   componentWillReceiveProps(nextProps) {
-    this.messages.push(nextProps.snackbar);
+    if (this.messageId !== nextProps.snackbar.get('id')) {
+      this.messageId = nextProps.snackbar.get('id');
+      this.messages.push(nextProps.snackbar.get('message'));
 
-    if (!this.processingMessages) {
-      this.processMessages();
+      if (!this.processingMessages) {
+        this.processMessages();
+      }
     }
   }
 

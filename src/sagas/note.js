@@ -4,6 +4,7 @@ import { push } from 'react-router-redux';
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 import db from '../db';
+import * as common from '../actions/common';
 import * as note from '../actions/note';
 import * as fromNote from '../reducers/note';
 
@@ -44,13 +45,13 @@ function* saveNewNote(action) {
 
     yield put(push('/note/' + id));
 
-    // TODO: Display SnackBar when available
+    yield put(common.setSnackbar('Nota guardada.'));
 
     yield put(note.resetDraft());
   } catch (err) {
     log.error(err);
 
-    // TODO: Display SnackBar when available
+    yield put(common.setSnackbar('Error al guardar la nota.'));
   }
 }
 
@@ -62,7 +63,7 @@ function* loadNote(action) {
   } catch (err) {
     log.error(err);
 
-    // TODO: Display SnackBar when available
+    yield put(common.setSnackbar('Error al cargar la nota.'));
   }
 }
 
