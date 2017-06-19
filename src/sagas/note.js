@@ -17,6 +17,8 @@ function* loadDraft(action) {
     }
   } catch (err) {
     log.error(err);
+
+    yield put(common.setSnackbar('Error al cargar el borrador.'));
   }
 }
 
@@ -28,6 +30,8 @@ function* saveDraft(action) {
     yield call([db.Drafts, 'put'], data.toJS());
   } catch (err) {
     log.error(err);
+
+    yield put(common.setSnackbar('Error al guardar el borrador.'));
   }
 }
 
@@ -114,6 +118,19 @@ function* removeNote(action) {
   }
 }
 
+function* loadNotes() {
+  try {
+    // TODO: Better notes load
+    const data = yield call([db.Notes.reverse(), 'toArray']);
+
+    yield put(note.setNotes(fromJS(data)));
+  } catch (err) {
+    log.error(err);
+
+    yield put(common.setSnackbar('Error al cargar las notas.'));
+  }
+}
+
 function* noteSaga() {
   yield takeLatest(note.LOAD_DRAFT, loadDraft);
   yield takeLatest(note.SAVE_DRAFT, saveDraft);
@@ -122,6 +139,7 @@ function* noteSaga() {
   yield takeLatest(note.LOAD_NOTE, loadNote);
   yield takeEvery(note.SAVE_NOTE, saveNote);
   yield takeEvery(note.REMOVE_NOTE, removeNote);
+  yield takeLatest(note.LOAD_NOTES, loadNotes);
 }
 
 export default noteSaga;

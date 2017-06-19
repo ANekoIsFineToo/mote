@@ -18,3 +18,4 @@ export const getCommonSnackbar = createSelector(getCommon, fromCommon.getSnackba
 export const getNote = state => state.get('note');
 export const getNoteDraft = createSelector(getNote, fromNote.getDraft);
 export const getNoteNote = createSelector(getNote, fromNote.getNote);
+export const getNoteNotes = createSelector(getNote, fromNote.getNotes);

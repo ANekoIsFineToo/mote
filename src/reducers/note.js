@@ -15,16 +15,21 @@ export const initialState = fromJS({
     content: '',
     color: '',
   },
+  notes: [],
 });
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case note.SET_DRAFT: {
-      return state.update('draft', draft => draft.merge(action.payload));
+      return state.set('draft', action.payload);
     }
 
     case note.SET_NOTE: {
-      return state.update('note', note => note.merge(action.payload));
+      return state.set('note', action.payload);
+    }
+
+    case note.SET_NOTES: {
+      return state.set('notes', action.payload);
     }
 
     default: {
@@ -35,3 +40,4 @@ export default (state = initialState, action) => {
 
 export const getDraft = state => state.get('draft');
 export const getNote = state => state.get('note');
+export const getNotes = state => state.get('notes');
