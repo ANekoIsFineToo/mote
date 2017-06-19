@@ -91,7 +91,7 @@ function* saveNote(action) {
 
     yield put(push('/note/' + id));
 
-    yield put(push(common.setSnackbar('Nota guardada.')));
+    yield put(common.setSnackbar('Nota guardada.'));
   } catch (err) {
     log.error(err);
 
